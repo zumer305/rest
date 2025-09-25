@@ -26,24 +26,37 @@ app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views")); //ejs files
 app.use(express.static(path.join(__dirname,"public"))); //css files
 
-// 1
+// 1 get(all posts)
 app.get("/posts",(req,res)=>{
     res.render("index.ejs",{posts});
 })
 
 let posts=[
     {
-        name:"zumer",
+        username:"zumer",
         content:"I am a girl",
     },
      {
-        name:"Niaz",
+        username:"Niaz",
         content:"I am a boy",
     },
      {
-        name:"Asma",
+        username:"Asma",
         content:"I am woman",
     },
 ];
+
+// 2(add new post)
+app.get("/posts/new",(req,res)=>{
+    res.render("new.ejs");  //file sa data a ra
+})
+app.post("/posts",(req,res)=>{
+    let{username,content}=req.body;
+    posts.push({username,content});
+    res.send("post req working"); // just print on this link
+})
+
+
+
 
 
