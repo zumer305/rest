@@ -33,14 +33,17 @@ app.get("/posts",(req,res)=>{
 
 let posts=[
     {
+        id:"1a",
         username:"zumer",
         content:"I am a girl",
     },
      {
+           id:"2a",
         username:"Niaz",
         content:"I am a boy",
     },
      {
+           id:"3a",
         username:"Asma",
         content:"I am woman",
     },
@@ -48,13 +51,28 @@ let posts=[
 
 // 2(add new post)
 app.get("/posts/new",(req,res)=>{
-    res.render("new.ejs");  //file sa data a ra
+    res.render("new.ejs");  //file sa data a ra-------res.send (just print)
 })
 app.post("/posts",(req,res)=>{
     let{username,content}=req.body;
     posts.push({username,content});
-    res.send("post req working"); // just print on this link
+    res.redirect("/posts"); // kisi get req url sa data la ra
 })
+
+// 3------- form ko redirect allposts sath phir new anchor tag lagaya
+
+
+// 4 show single post 
+app.get("/posts/:id",(req,res)=>{
+    let {id}=req.params;
+    let post=posts.find((p)=>id===p.id);
+    res.render("show.ejs",{post});
+})
+
+
+
+// 5 add id to every single post
+
 
 
 
