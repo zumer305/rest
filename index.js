@@ -104,6 +104,16 @@ app.get("/posts/:id/edit",(req,res)=>{
 })
 
 
+// DELETE 
+app.delete("/posts/:id", (req, res) => {
+    let { id } = req.params;       // id nikali
+    posts = posts.filter((p) => p.id !== id);   // filter karke remove kiya
+    console.log("Remaining Posts:", posts);
+    res.redirect("/posts");        // delete ke baad list pe redirect
+});
+
+
+
 
 
 
