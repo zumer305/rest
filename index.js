@@ -16,6 +16,10 @@ app.listen(port,()=>{
 
 const { v4:uuidv4 } =require('uuid'); // for id unique
 
+const methodOverride=require("method-override");//patch html direct use ni krta isliya override
+app.use(methodOverride("_method"));
+// npm install method-override 
+
 
 
 // ---------------------------------------------------------------------------
@@ -80,6 +84,24 @@ app.get("/posts/:id",(req,res)=>{
 
 // 5 add id to every single post
 // npm install uuid 
+
+
+// 6
+// PATCH request to update post content
+app.patch("/posts/:id", (req, res) => {
+    let { id } = req.params;                  // URL se id nikal li
+    let newContent = req.body.content;        // body se new content aya
+    let post = posts.find((p) => id == p.id); // id match karke post find ki
+
+    post.content = newContent;                // us post ka content update
+    console.log(post);                        // updated post console pe
+    res.redirect("/posts");        // response url
+});
+app.get("/posts/:id/edit",(req,res)=>{
+    let {id}=req.params;
+    let post=posts.find((p)=>id===p.id);
+    res.render("edit.ejs",{post}); // file render
+})
 
 
 
