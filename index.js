@@ -14,6 +14,10 @@ app.listen(port,()=>{
     console.log("Server is listening");
 })
 
+const { v4:uuidv4 } =require('uuid'); // for id unique
+
+
+
 // ---------------------------------------------------------------------------
 
 
@@ -33,17 +37,17 @@ app.get("/posts",(req,res)=>{
 
 let posts=[
     {
-        id:"1a",
+        id:uuidv4(), 
         username:"zumer",
         content:"I am a girl",
     },
      {
-           id:"2a",
+           id:uuidv4(),
         username:"Niaz",
         content:"I am a boy",
     },
      {
-           id:"3a",
+           id:uuidv4(),
         username:"Asma",
         content:"I am woman",
     },
@@ -55,7 +59,10 @@ app.get("/posts/new",(req,res)=>{
 })
 app.post("/posts",(req,res)=>{
     let{username,content}=req.body;
-    posts.push({username,content});
+
+    let id=uuidv4();
+
+    posts.push({id,username,content});
     res.redirect("/posts"); // kisi get req url sa data la ra
 })
 
@@ -72,6 +79,8 @@ app.get("/posts/:id",(req,res)=>{
 
 
 // 5 add id to every single post
+// npm install uuid 
+
 
 
 
